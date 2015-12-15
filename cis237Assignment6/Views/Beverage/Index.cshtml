@@ -5,7 +5,24 @@
 }
 
 <h2>Index</h2>
-
+<div class="form-group">
+    <fieldset>
+        <legend>Seach Filter</legend>
+        @{
+            using (Html.BeginForm("Filter", "beverage", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.Label("Model", "model")
+                <input type="text" id="model" />
+                @Html.Label("Model", "max")
+                <input type="number" id="max" />
+                @Html.Label("Model", "max")
+                <input type="number" id="min" />
+                <br />
+                <input type="button" id="filter" value="Filter" class="btn btn-info pull-right">
+            }
+}
+    </fieldset>
+</div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

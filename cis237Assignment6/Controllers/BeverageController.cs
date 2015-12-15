@@ -7,13 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using cis237Assignment6.Models;
-
 namespace cis237Assignment6.Controllers
 {
+    [Authorize]
     public class BeverageController : Controller
     {
         private BeverageGFarnsworthEntities db = new BeverageGFarnsworthEntities();
-
+        [HttpPost, ActionName("filter")]
+        public ActionResult Filter()
+        {
+            return Content("test 123");
+        }
         // GET: /Beverage/
         public ActionResult Index()
         {
