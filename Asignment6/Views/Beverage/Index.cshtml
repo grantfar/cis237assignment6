@@ -1,0 +1,82 @@
+﻿
+
+@model IEnumerable<Asignment6.Models.Beverage>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<div class="form-group">
+    <fieldset>
+        <legend>Search Filter</legend>
+        @{
+
+            using (Html.BeginForm("Filter", "Beverage", FormMethod.Post, new {@class = "form-inline"}))
+            {
+                @Html.Label("name", "Name");
+                <input type="text" name="name" id="name" class="filterText" value="@(ViewBag.name??string.Empty)" />
+                @Html.Label("min", "Min Price")        ;
+                <input type="number" id="min" class="filterText" name="min" value="@(ViewBag.min??string.Empty)" />
+                @Html.Label("max", "Max Price");
+                <input type="number" id="max" class="filterText" name="max" value="@(ViewBag.max??string.Empty)" />
+                @Html.Label("pack", "Pack");
+                <input type="text" id="pack" class="filterText" name="pack" value="@(ViewBag.pack??string.Empty)" />
+                @Html.Label("active", "Active");
+                <input type="checkbox" id="active" name="active" value="true" checked="@(ViewBag.active??true)" />
+                @Html.Label("unactive", "Unactive");
+                <input type="checkbox" id="unactive" name="unactive" value="true"  checked= "@(ViewBag.unactive??true)" />
+                <br>
+                <div class="pull-right">
+                    <input type="submit" value="Filter" class="btn btn-info ">
+                    &nbsp;
+                    <input type="button" value="Reset" class="btn btn-info " id="reset" onclick="$('.filterText').val(''); $('#active').checked = true; $('#active').checked = true; document.forms[1].submit();">
+                    
+                </div>
+            }
+}
+    </fieldset>
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pack)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id = "@item.id" class="tableRow" onclick="document.location = '/beverage/edit/'.concat(this.id)">
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pack)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+</table>
+@Scripts.Render("~/Views/Beverage/BeverageIndex.js")
+
